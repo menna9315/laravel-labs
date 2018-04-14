@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePostsIdTable extends Migration
+class UlterPostsAddSlug extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreatePostsIdTable extends Migration
      */
     public function up()
     {
-        
-            Schema::table('posts', function (Blueprint $table) {
-                $table->integer('user_id')->nullable();
-            });
-       
+        Schema::table('posts', function (Blueprint $table) {
+            $table->string('slug');
+        });
     }
 
     /**
@@ -25,8 +23,8 @@ class CreatePostsIdTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(Blueprint $table)
     {
-        Schema::dropIfExists('posts_id');
+        $table->dropColumn('slug');
     }
 }

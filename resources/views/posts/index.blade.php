@@ -1,36 +1,48 @@
-@extends('layouts.master')
+@extends('layouts.app')
 
 
 @section('content')
+<div class="panel panel-primary">
+      <div class="panel-heading">Posts</div>
+     
+    </div>
 
-<h1>Posts</h1>
-<a href="posts/create">Create Post</a>
 
-<ul>
+<a  class="btn btn-danger" href="posts/create">Create Post</a>
+<hr/>
 
+
+<table class="table table-striped">
+    <tbody>
 @foreach ($posts as $post)
+<tr>
 
+<td>{{ $post->title }}   </td>
+<td>{{$post->user->name}}</td>
+<td>{{$post->slug}}</td>
+<td><a class="btn btn-info" href="/posts/{{$post->id}}">View</a></td>
 
-<li>{{ $post->title }}   </li>
+<td><form method="GET" action="/posts/{{$post->id}}/edit" >
+    <button  class="btn btn-primary" > Edit </button>
+</form></td>
 
-
-<form method="post" action="/posts/{{$post->id}}" >
+<td><form method="post" action="/posts/{{$post->id}}" >
     {{csrf_field()}}
     {{method_field('DELETE')}}
     <button onclick="return confirm('are you sure')" type="submit" class="btn btn-danger" > Delete </button>
-</form>
-<form method="GET" action="/posts/{{$post->id}}/edit" >
-    {{csrf_field()}}
-    {{method_field('EDIT')}}
-    <button  class="btn btn-primary" > edit </button>
-</form>
+</form></td>
 
 
 
 
+
+</tr>
 @endforeach
 
 
-</ul>
+</tbody>
+  </table>
+  
+
 
 @endsection

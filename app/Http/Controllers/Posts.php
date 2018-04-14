@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 use App\Post;
 use App\User;
 use Illuminate\Http\Request;
-
+use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 class Posts extends Controller
 {
     //
@@ -44,13 +45,20 @@ class Posts extends Controller
                 'users' => $users
             ]);
         }
+        public function show(Post $post){
+
+            //compact == ['post' =>$post]
+            //dd($post->user);
+            return view('posts.show',compact('post'));
+        }
     
-        public function store(Request $request)
+        public function store(StorePostRequest $request)
         {
-            // dd($request->all());
+            
+             
             Post::create([
                 'title' => $request->title,
-                'desc' => $request->description,
+                'desc' => $request->desc,
                 'user_id' => $request->user_id
             ]);
             
@@ -73,12 +81,17 @@ class Posts extends Controller
     }
 
 
-    public function update(Request $request,$id){
+    public function update(UpdatePostRequest $request,$id){
         $post=Post::find($id);
-        $post->title=$request->title;
-        $post->desc=$request->desc;
-        $post->user_id=$request->user;
-        $post->save();
+        $post->update([
+            'title' => $request->title,
+            'desc' => $request->desc,
+            'user_id' => $request->user_id
+        ]);
+        // $post->title=$request->title;
+        // $post->desc=$request->desc;
+        // $post->user_id=$request->user_id;
+        // $post->save();
 
 
 
