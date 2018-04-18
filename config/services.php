@@ -34,5 +34,12 @@ return [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
+    'github' => [
+        'client_id' => env('GITHUB_CLIENT_ID','Iv1.f59b1baea1f4d76f'),         // Your GitHub Client ID
+        'client_secret' => env('GITHUB_CLIENT_SECRET','73645b83ae7cf1f0b8a01eedb522898b5d7fc784'), // Your GitHub Client Secret
+        'redirect' => 'http://lab.local/login/github/callback',
+    ],
+
+    
 
 ];
